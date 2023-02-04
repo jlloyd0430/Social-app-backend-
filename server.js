@@ -15,11 +15,7 @@ const Post = require("./models/Post");
 dotenv.config();
 
 const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer, {
-  cors: {
-    origin: ["*", "https://social-media-backend-2xu1.onrender.com"],
-  },
-});
+const io = require("socket.io")(httpServer);
 
 io.use(authSocket);
 io.on("connection", (socket) => socketServer(socket));
