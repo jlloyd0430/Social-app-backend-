@@ -1,6 +1,28 @@
 const jwt = require("jsonwebtoken");
 let users = [];
 
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "*",
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
+});
+
 const authSocket = (socket, next) => {
   let token = socket.handshake.auth.token;
 
