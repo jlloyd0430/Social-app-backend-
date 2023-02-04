@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 let users = [];
-
+const express = require("express");
+const app = express();
 const cors = require("cors");
 
 const corsOptions = {
