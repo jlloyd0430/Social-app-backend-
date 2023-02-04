@@ -14,15 +14,28 @@ const Post = require("./models/Post");
 
 dotenv.config();
 
-const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer, {
-  cors: {
-    origin: [
-      "http://localhost:3000",
-      "https://social-media-backend-2xu1.onrender.com",
-    ],
-  },
+const corsOptions = {
+  origin: "*",
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
 });
+
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer);
 
 io.use(authSocket);
 io.on("connection", (socket) => socketServer(socket));
