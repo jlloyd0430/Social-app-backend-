@@ -15,7 +15,11 @@ const Post = require("./models/Post");
 dotenv.config();
 
 const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer);
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: ["*", "https://social-media-backend-2xu1.onrender.com"],
+  },
+});
 
 io.use(authSocket);
 io.on("connection", (socket) => socketServer(socket));
@@ -35,7 +39,7 @@ httpServer.listen(process.env.PORT || 4000, () => {
 app.use(express.json());
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://social-media-frontend-7sq7.onrender.com",
   optionSuccessStatus: 200,
 };
 
