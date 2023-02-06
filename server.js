@@ -33,13 +33,13 @@ mongoose.connect(
 );
 
 httpServer.listen(process.env.PORT || 4000, () => {
-  console.log("Listening");
+  console.log(`Listening on PORT ${process.env.PORT}`);
 });
 
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://social-media-frontend-7sq7.onrender.com",
+  origin: "*",
   optionSuccessStatus: 200,
 };
 
