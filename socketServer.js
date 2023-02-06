@@ -17,6 +17,13 @@ const authSocket = (socket, next) => {
   }
 };
 
+io.origins((origin, callback) => {
+  if (origin !== "https://social-media-frontend-7sq7.onrender.com") {
+    return callback("origin not allowed", false);
+  }
+  callback(null, true);
+});
+
 const socketServer = (socket) => {
   const userId = socket.decoded.userId;
   users.push({ userId, socketId: socket.id });
