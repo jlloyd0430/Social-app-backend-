@@ -1,11 +1,10 @@
+const express = require("express");
 const http = require("http");
 const jwt = require("jsonwebtoken");
-let users = [];
 
-const socketIO = require("socket.io");
-
-const server = http.createServer();
-const io = socketIO(server, {
+const app = express();
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
   origins: "https://social-media-frontend-7sq7.onrender.com",
 });
 
@@ -26,6 +25,7 @@ const authSocket = (socket, next) => {
 };
 
 const socketServer = (socket) => {
+  let users = [];
   const userId = socket.decoded.userId;
   users.push({ userId, socketId: socket.id });
 
@@ -43,4 +43,7 @@ const socketServer = (socket) => {
   });
 };
 
-module.exports = { socketServer, authSocket, server };
+io.use(authSocket);
+io.on("connection", socketServer);
+
+module.exports = { server };
