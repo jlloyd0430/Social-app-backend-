@@ -5,7 +5,9 @@ let users = [];
 const socketIO = require("socket.io");
 
 const server = http.createServer();
-const io = socketIO(server);
+const io = socketIO(server, {
+  origins: "https://social-media-frontend-7sq7.onrender.com",
+});
 
 const authSocket = (socket, next) => {
   let token = socket.handshake.auth.token;
@@ -22,13 +24,6 @@ const authSocket = (socket, next) => {
     next(new Error("Authentication error"));
   }
 };
-
-io.origins((origin, callback) => {
-  if (origin !== "https://social-media-frontend-7sq7.onrender.com") {
-    return callback("origin not allowed", false);
-  }
-  callback(null, true);
-});
 
 const socketServer = (socket) => {
   const userId = socket.decoded.userId;
