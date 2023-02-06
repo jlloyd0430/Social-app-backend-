@@ -1,8 +1,10 @@
+const http = require("http");
 const jwt = require("jsonwebtoken");
 let users = [];
 
 const socketIO = require("socket.io");
 
+const server = http.createServer();
 const io = socketIO(server);
 
 const authSocket = (socket, next) => {
@@ -46,4 +48,4 @@ const socketServer = (socket) => {
   });
 };
 
-module.exports = { socketServer, authSocket };
+module.exports = { socketServer, authSocket, server };
