@@ -33,7 +33,7 @@ mongoose.connect(
 );
 
 httpServer.listen(process.env.PORT || 4000, () => {
-  console.log(`Listening on PORT ${process.env.PORT}`);
+  console.log(`Listening on PORT $`);
 });
 
 app.use(express.json());

@@ -6,6 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   origins: "https://social-media-frontend-7sq7.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 });
 
 const authSocket = (socket, next) => {
